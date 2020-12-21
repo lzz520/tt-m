@@ -1,53 +1,56 @@
 <template>
   <div class="login-container">
     <!-- 导航栏 -->
-    <van-nav-bar class="page-nav-bar" title="登录" />
+    <van-nav-bar class="page-nav-bar" title="登录">
+      <van-icon slot="left" name="cross"></van-icon>
+    </van-nav-bar>
     <!-- 登录表单 -->
     <van-form ref="loginForm" @submit="onSubmit">
-        <van-field
-            v-model="user.mobile"
-            name="mobile"
-            placeholder="请输入手机号"
-            :rules="userFormRules.mobile"
-            type="number"
-            maxlength="11"
-        >
-          <i slot="left-icon" class="toutiao toutiao-shouji"></i>
-        </van-field>
-        <van-field
-            v-model="user.code"
-            name="code"
-            placeholder="请输入验证码"
-            :rules="userFormRules.code"
-            type="number"
-            maxlength="6"
-        >
-          <i slot="left-icon" class="toutiao toutiao-yanzhengma"></i>
-            <template #button>
-              <!-- time 倒计时时间 -->
-              <van-count-down
-                v-if="isCountDownShow"
-                :time="1000 * 10"
-                format="ss s"
-                @finish="isCountDownShow = false"
-              />
-              <van-button
-                v-else
-                class="send-sm-btn"
-                native-type="button"
-                round
-                size="small"
-                type="default"
-                @click="onSendSms"
-              >发送验证码</van-button>
-            </template>
-        </van-field>
-        <div class="login-btn-wrap">
-            <van-button class="login-btn" block type="info" native-type="submit">
-                登录
-            </van-button>
-        </div>
-        </van-form>
+      <van-field
+        v-model="user.mobile"
+        name="mobile"
+        placeholder="请输入手机号"
+        :rules="userFormRules.mobile"
+        type="number"
+        maxlength="11"
+      >
+        <i slot="left-icon" class="toutiao toutiao-shouji"></i>
+      </van-field>
+      <van-field
+        v-model="user.code"
+        name="code"
+        placeholder="请输入验证码"
+        :rules="userFormRules.code"
+        type="number"
+        maxlength="6"
+      >
+        <i slot="left-icon" class="toutiao toutiao-yanzhengma"></i>
+        <template #button>
+          <!-- time 倒计时时间 -->
+          <van-count-down
+            v-if="isCountDownShow"
+            :time="1000 * 10"
+            format="ss s"
+            @finish="isCountDownShow = false"
+          />
+          <van-button
+            v-else
+            class="send-sm-btn"
+            native-type="button"
+            round
+            size="small"
+            type="default"
+            @click="onSendSms"
+            >发送验证码</van-button
+          >
+        </template>
+      </van-field>
+      <div class="login-btn-wrap">
+        <van-button class="login-btn" block type="info" native-type="submit">
+          登录
+        </van-button>
+      </div>
+    </van-form>
   </div>
 </template>
 
@@ -62,26 +65,30 @@ export default {
       user: {
         mobile: '13911111111', // 手机号
         code: '246810' // 验证码
-
       },
       userFormRules: {
-        mobile: [{
-          required: true,
-          message: '手机号不能为空'
-        }, {
-          pattern: /^1[3|5|7|8]\d{9}$/,
-          message: '手机号格式错误'
-        }],
-        code: [{
-          required: true,
-          message: '验证码不能为空'
-        }, {
-          pattern: /^\d{6}$/,
-          message: '验证码格式错误'
-        }]
+        mobile: [
+          {
+            required: true,
+            message: '手机号不能为空'
+          },
+          {
+            pattern: /^1[3|5|7|8]\d{9}$/,
+            message: '手机号格式错误'
+          }
+        ],
+        code: [
+          {
+            required: true,
+            message: '验证码不能为空'
+          },
+          {
+            pattern: /^\d{6}$/,
+            message: '验证码格式错误'
+          }
+        ]
       },
       isCountDownShow: false
-
     }
   },
   methods: {
@@ -98,7 +105,7 @@ export default {
       //  3.提交表单请求登录
       try {
         const { data } = await login(user)
-        // console.log('登录成功', res)
+        console.log('登录成功', data)
         this.$store.commit('setUser', data.data)
         this.$toast.success('登录成功')
       } catch (err) {
@@ -136,7 +143,6 @@ export default {
         }
       }
     }
-
   }
 }
 </script>
@@ -161,7 +167,6 @@ export default {
       background-color: #6db4fb;
       border: none;
     }
-
   }
 }
 </style>
