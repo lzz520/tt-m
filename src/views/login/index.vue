@@ -92,7 +92,7 @@ export default {
     }
   },
   methods: {
-    // 测试修改登录模块123
+    // 测试修改登录模块
     async onSubmit () {
       //  1.获取表单数据
       const user = this.user

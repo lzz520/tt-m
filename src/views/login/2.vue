@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <div>
+    测试2.vue
+  </div>
 </template>
 
 <script>
